@@ -26,9 +26,7 @@ export const todosRoute = todoApp
         .orderBy(desc(todos.createdAt))
         .all()
 
-      return ctx.json<{ todos: Todo[] }>({
-        todos: result,
-      })
+      return ctx.json<Todo[]>(result)
     }
   )
   .get(
@@ -62,9 +60,7 @@ export const todosRoute = todoApp
 
       const result = query.all()
 
-      return ctx.json<{ todos: Todo[] }>({
-        todos: result,
-      })
+      return ctx.json<Todo[]>(result)
     }
   )
   .get(
@@ -74,7 +70,7 @@ export const todosRoute = todoApp
       z.object({
         id: z
           .string()
-          .refine((v) => !isNaN(Number(v)), 'Invalid numeric string')
+          .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
           .transform((v) => Number(v)),
       })
     ),
@@ -87,9 +83,7 @@ export const todosRoute = todoApp
         return ctx.body(null, 404)
       }
 
-      return ctx.json<{ todo: Todo }>({
-        todo: result,
-      })
+      return ctx.json<Todo>(result)
     }
   )
   .post(
@@ -105,10 +99,7 @@ export const todosRoute = todoApp
 
       const result = db.insert(todos).values({ title }).returning().get()
 
-      return ctx.json<{ success: true; data: Todo }>({
-        success: true,
-        data: result,
-      })
+      return ctx.json<Todo>(result)
     }
   )
   .patch(
@@ -118,7 +109,7 @@ export const todosRoute = todoApp
       z.object({
         id: z
           .string()
-          .refine((v) => !isNaN(Number(v)), 'Invalid numeric string')
+          .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
           .transform((v) => Number(v)),
       })
     ),
@@ -145,10 +136,7 @@ export const todosRoute = todoApp
         return ctx.body(null, 404)
       }
 
-      return ctx.json<{ success: true; data: Todo }>({
-        success: true,
-        data: result,
-      })
+      return ctx.json<Todo>(result)
     }
   )
   .delete(
@@ -158,7 +146,7 @@ export const todosRoute = todoApp
       z.object({
         id: z
           .string()
-          .refine((v) => !isNaN(Number(v)), 'Invalid numeric string')
+          .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
           .transform((v) => Number(v)),
       })
     ),
@@ -177,8 +165,6 @@ export const todosRoute = todoApp
         return ctx.body(null, 404)
       }
 
-      return ctx.json<{ success: true }>({
-        success: true,
-      })
+      return ctx.body(null, 200)
     }
   )
