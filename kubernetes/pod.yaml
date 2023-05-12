@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hono-nodejs
+  namespace: hono-nodejs
+spec:
+  containers:
+    - name: app
+      image: node:18
+      envFrom:
+        - configMapRef:
+            name: hono-nodejs-configmap
