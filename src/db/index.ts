@@ -2,7 +2,7 @@ import Database from 'better-sqlite3'
 import { Logger } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { env } from '../utils/env'
-import { logger } from '../utils/logger'
+import { logger } from '../utils/log'
 
 class DatabaseLogger implements Logger {
   logQuery(query: string, params: unknown[]): void {

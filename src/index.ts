@@ -6,7 +6,7 @@ import { healthzRoute } from './routes/healthz'
 import { metricsRoute } from './routes/metrics'
 import { todosRoute } from './routes/todos'
 import { env } from './utils/env'
-import { logger } from './utils/logger'
+import { logger } from './utils/log'
 
 const app = new Hono()
 

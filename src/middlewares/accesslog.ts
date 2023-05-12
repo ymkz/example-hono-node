@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono'
-import { logger } from '../utils/logger'
+import { logger } from '../utils/log'
 
 const time = (start: number) => {
   const delta = performance.now() - start
