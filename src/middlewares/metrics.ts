@@ -19,7 +19,6 @@ export const metricsMiddleware = (): MiddlewareHandler => {
     const { pathname } = new URL(ctx.req.url)
 
     if (
-      pathname === '/' ||
       pathname.includes('/healthz') ||
       pathname.includes('/favicon') ||
       pathname.includes('/metrics')

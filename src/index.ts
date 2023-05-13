@@ -15,7 +15,7 @@ app.use('*', requestIdMiddleware())
 app.use('*', accesslogMiddleware())
 app.use('*', metricsMiddleware())
 
-app.route('/', healthzRoute)
+app.route('/healthz', healthzRoute)
 app.route('/metrics', metricsRoute)
 app.route('/todos', todosRoute)
 
