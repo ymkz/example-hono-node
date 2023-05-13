@@ -19,6 +19,7 @@ export const accesslogMiddleware = (): MiddlewareHandler => {
       return await next()
     }
 
+    // TODO: remoteIpをだしたい
     logger.info({
       msg: 'request incoming',
       method: ctx.req.method,

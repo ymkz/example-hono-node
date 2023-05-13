@@ -18,6 +18,7 @@
     "drizzle-orm": "0.25.4",
     "envey": "1.1.0",
     "hono": "3.1.8",
+    "nanoid": "4.0.2",
     "pino": "8.14.1",
     "pino-pretty": "10.0.0",
     "prom-client": "14.2.0",
