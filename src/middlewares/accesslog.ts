@@ -13,7 +13,8 @@ export const accesslogMiddleware = (): MiddlewareHandler => {
     if (
       pathname.includes('/healthz') ||
       pathname.includes('/favicon') ||
-      pathname.includes('/metrics')
+      pathname.includes('/metrics') ||
+      pathname.includes('/docs')
     ) {
       return await next()
     }

@@ -1,7 +1,5 @@
 import { Hono } from 'hono'
 
-const healthzApp = new Hono()
-
-export const healthzRoute = healthzApp.get('/', (ctx) => {
+export const healthzRoute = new Hono().get('/', (ctx) => {
   return ctx.text('OK')
 })
