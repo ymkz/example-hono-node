@@ -22,7 +22,7 @@ paths:
               required:
                 - title
       responses:
-        "200":
+        '200':
           description: todoの新規作成成功
           content:
             application/json:
@@ -43,14 +43,14 @@ paths:
             default: progress
           required: true
       responses:
-        "200":
+        '200':
           description: todoの一覧取得成功
           content:
             application/json:
               schema:
                 type: object
                 properties: {}
-  "/todos/{id}":
+  '/todos/{id}':
     delete:
       summary: todoの削除
       parameters:
@@ -60,9 +60,9 @@ paths:
             type: string
           required: true
       responses:
-        "200":
+        '200':
           description: todoの削除成功
-        "404":
+        '404':
           description: 対象のtodoが存在しない
     get:
       summary: todoの取得
@@ -73,14 +73,14 @@ paths:
             type: string
           required: true
       responses:
-        "200":
+        '200':
           description: todoの取得成功
           content:
             application/json:
               schema:
                 type: object
                 properties: {}
-        "404":
+        '404':
           description: 対象のtodoが存在しない
     patch:
       summary: todoの更新
@@ -106,7 +106,7 @@ paths:
                     - pending
                     - done
       responses:
-        "200":
+        '200':
           description: todoの更新成功
           content:
             application/json:
@@ -133,7 +133,7 @@ paths:
               - done
           required: false
       responses:
-        "200":
+        '200':
           description: todoの検索成功
           content:
             application/json:
