@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: app
-      image: node:18
+      image: docker.io/library/hono-nodejs:latest
       envFrom:
         - configMapRef:
             name: hono-nodejs-configmap
