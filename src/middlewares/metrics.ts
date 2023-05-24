@@ -27,13 +27,13 @@ export const metricsMiddleware = (): MiddlewareHandler => {
       return await next()
     }
 
-    const end = summary.startTimer({
+    const endTimer = summary.startTimer({
       method: ctx.req.method,
       path: pathname,
     })
 
     await next()
 
-    end({ status_code: ctx.res.status })
+    endTimer({ status_code: ctx.res.status })
   }
 }
