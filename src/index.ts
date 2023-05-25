@@ -11,7 +11,7 @@ import { metricsRoute } from './routes/metrics'
 import { todosRoute } from './routes/todos'
 import { env } from './utils/env'
 import { logger } from './utils/log'
-import { writeOpenAPIJson } from './utils/openapi'
+import { writeOpenAPIDocument } from './utils/openapi'
 
 extendZodWithOpenApi(z)
 
@@ -26,7 +26,7 @@ app.route('/metrics', metricsRoute)
 app.route('/todos', todosRoute)
 
 if (env.NODE_ENV !== 'production') {
-  writeOpenAPIJson()
+  writeOpenAPIDocument()
   app.get('/docs/*', serveStatic())
 }
 

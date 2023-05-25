@@ -1,8 +1,8 @@
+openapi: 3.1.0
 info:
   version: 0.0.0
   title: hono-nodejs
   description: Hono on NodeJS
-openapi: 3.1.0
 components:
   schemas: {}
   parameters: {}
@@ -32,9 +32,7 @@ paths:
     get:
       summary: todoの一覧取得
       parameters:
-        - in: query
-          name: status
-          schema:
+        - schema:
             type: string
             enum:
               - progress
@@ -42,6 +40,8 @@ paths:
               - done
             default: progress
           required: true
+          name: status
+          in: query
       responses:
         '200':
           description: todoの一覧取得成功
@@ -54,11 +54,11 @@ paths:
     delete:
       summary: todoの削除
       parameters:
-        - in: path
-          name: id
-          schema:
+        - schema:
             type: string
           required: true
+          name: id
+          in: path
       responses:
         '200':
           description: todoの削除成功
@@ -67,11 +67,11 @@ paths:
     get:
       summary: todoの取得
       parameters:
-        - in: path
-          name: id
-          schema:
+        - schema:
             type: string
           required: true
+          name: id
+          in: path
       responses:
         '200':
           description: todoの取得成功
@@ -85,11 +85,11 @@ paths:
     patch:
       summary: todoの更新
       parameters:
-        - in: path
-          name: id
-          schema:
+        - schema:
             type: string
           required: true
+          name: id
+          in: path
       requestBody:
         content:
           application/json:
@@ -117,21 +117,21 @@ paths:
     get:
       summary: todoの検索
       parameters:
-        - in: query
-          name: title
-          schema:
+        - schema:
             type: string
             minLength: 1
           required: false
-        - in: query
-          name: status
-          schema:
+          name: title
+          in: query
+        - schema:
             type: string
             enum:
               - progress
               - pending
               - done
           required: false
+          name: status
+          in: query
       responses:
         '200':
           description: todoの検索成功
@@ -140,3 +140,4 @@ paths:
               schema:
                 type: object
                 properties: {}
+webhooks: {}

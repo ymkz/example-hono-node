@@ -11,14 +11,14 @@
     "migration:run": "node script/migration.mjs"
   },
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "4.7.0",
-    "@hono/node-server": "1.0.0",
+    "@asteasolutions/zod-to-openapi": "5.0.0",
+    "@hono/node-server": "1.0.1",
     "@hono/zod-validator": "0.1.2",
-    "better-sqlite3": "8.3.0",
+    "better-sqlite3": "8.4.0",
     "dayjs": "1.11.7",
-    "drizzle-orm": "0.25.4",
+    "drizzle-orm": "0.26.1",
     "envey": "1.1.2",
-    "hono": "3.2.0",
+    "hono": "3.2.2",
     "nanoid": "4.0.2",
     "pino": "8.14.1",
     "pino-pretty": "10.0.0",
@@ -27,12 +27,12 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.4",
-    "@types/node": "20.2.1",
+    "@types/node": "20.2.3",
     "dotenv-cli": "7.2.1",
-    "drizzle-kit": "0.17.6",
+    "drizzle-kit": "0.18.0",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",
-    "yaml": "2.2.2"
+    "yaml": "2.3.0"
   }
 }

@@ -1,5 +1,5 @@
 import {
-  OpenAPIGenerator,
+  OpenApiGeneratorV31,
   OpenAPIRegistry,
 } from '@asteasolutions/zod-to-openapi'
 import { writeFile } from 'node:fs/promises'
@@ -9,10 +9,11 @@ import { logger } from '../log'
 
 export const registry = new OpenAPIRegistry()
 
-export const writeOpenAPIJson = async () => {
-  const generator = new OpenAPIGenerator(registry.definitions, '3.1.0')
+export const writeOpenAPIDocument = async () => {
+  const generator = new OpenApiGeneratorV31(registry.definitions)
 
   const docs = generator.generateDocument({
+    openapi: '3.1.0',
     info: {
       version: '0.0.0',
       title: 'hono-nodejs',
