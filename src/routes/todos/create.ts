@@ -2,7 +2,6 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { db } from '../../db'
-import { Todo, todos } from '../../db/schemas/todos'
 import { registry } from '../../utils/openapi'
 
 const todosCreateBody = z.object({
@@ -12,12 +11,16 @@ const todosCreateBody = z.object({
 export const todosCreateRoute = new Hono().post(
   '/',
   zValidator('json', todosCreateBody),
-  (ctx) => {
+  async (ctx) => {
     const { title } = ctx.req.valid('json')
 
-    const result = db.insert(todos).values({ title }).returning().get()
+    const result = await db
+      .insertInto('todos')
+      .values({ title })
+      .returningAll()
+      .executeTakeFirstOrThrow()
 
-    return ctx.json<Todo>(result)
+    return ctx.json(result)
   }
 )
 
