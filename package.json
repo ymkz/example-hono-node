@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "5.0.0",
-    "@hono/node-server": "1.0.1",
+    "@hono/node-server": "1.0.2",
     "@hono/zod-validator": "0.1.2",
     "better-sqlite3": "8.4.0",
     "dayjs": "1.11.7",
@@ -27,12 +27,12 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.4",
-    "@types/node": "20.2.3",
+    "@types/node": "20.2.5",
     "dotenv-cli": "7.2.1",
-    "drizzle-kit": "0.18.0",
+    "drizzle-kit": "0.18.1",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",
-    "yaml": "2.3.0"
+    "yaml": "2.3.1"
   }
 }
