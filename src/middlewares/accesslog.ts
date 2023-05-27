@@ -3,7 +3,7 @@ import { logger } from '../utils/log'
 
 const time = (start: number) => {
   const delta = performance.now() - start
-  return Math.round(delta)
+  return delta
 }
 
 export const accesslogMiddleware = (): MiddlewareHandler => {

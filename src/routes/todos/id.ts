@@ -1,9 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
-import { eq } from 'drizzle-orm'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { db } from '../../db'
-import { Todo, todos } from '../../db/schemas/todos'
 import { registry } from '../../utils/openapi'
 
 const todosIdParam = z.object({
@@ -16,16 +14,21 @@ const todosIdParam = z.object({
 export const todosIdRoute = new Hono().get(
   '/',
   zValidator('param', todosIdParam),
-  (ctx) => {
+  async (ctx) => {
     const { id } = ctx.req.valid('param')
 
-    const result = db.select().from(todos).where(eq(todos.id, id)).get()
+    const result = await db
+      .selectFrom('todos')
+      .selectAll()
+      .where('todos.id', '=', id)
+      .where('todos.deleted_at', 'is', null)
+      .executeTakeFirst()
 
     if (!result) {
       return ctx.body(null, 404)
     }
 
-    return ctx.json<Todo>(result)
+    return ctx.json(result)
   }
 )
 

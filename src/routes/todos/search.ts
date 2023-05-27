@@ -1,9 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
-import { and, desc, eq, isNull } from 'drizzle-orm'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { db } from '../../db'
-import { Todo, todos } from '../../db/schemas/todos'
 import { registry } from '../../utils/openapi'
 
 const todosSearchQuery = z.object({
@@ -14,29 +12,26 @@ const todosSearchQuery = z.object({
 export const todosSearchRoute = new Hono().get(
   '/',
   zValidator('query', todosSearchQuery),
-  (ctx) => {
+  async (ctx) => {
     const { title, status } = ctx.req.valid('query')
+    console.log(title, status)
 
-    const query = db.select().from(todos).orderBy(desc(todos.createdAt))
+    let query = db
+      .selectFrom('todos')
+      .selectAll()
+      .orderBy('todos.created_at', 'desc')
+      .where('todos.deleted_at', 'is', null)
 
-    // FIXME: 条件が多くなると分岐が増えて崩壊する。ただ適切な実装が不明。
-    if (title && status) {
-      query.where(
-        and(
-          eq(todos.title, title),
-          eq(todos.status, status),
-          isNull(todos.deletedAt)
-        )
-      )
-    } else if (title) {
-      query.where(and(eq(todos.title, title), isNull(todos.deletedAt)))
-    } else if (status) {
-      query.where(and(eq(todos.status, status), isNull(todos.deletedAt)))
+    if (title) {
+      query = query.where('todos.title', 'like', `%${title}%`)
+    }
+    if (status) {
+      query = query.where('todos.status', '=', status)
     }
 
-    const result = query.all()
+    const result = await query.execute()
 
-    return ctx.json<Todo[]>(result)
+    return ctx.json(result)
   }
 )
 

@@ -1,19 +1,33 @@
 import Database from 'better-sqlite3'
-import { Logger } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { Generated, Kysely, SqliteDialect } from 'kysely'
 import { env } from '../utils/env'
 import { logger } from '../utils/log'
 
-class DatabaseLogger implements Logger {
-  logQuery(query: string, params: unknown[]): void {
-    logger.info({
-      msg: 'database query runnning',
-      sql: query.replaceAll(`"`, `'`), // クエリに含まれるdouble-quoteがエスケープされて見にくいsingle-quoteに変換
-      params,
-    })
+type DB = {
+  todos: {
+    id: Generated<number>
+    title: string
+    status: Generated<'progress' | 'pending' | 'done'>
+    created_at: Generated<string>
+    updated_at: string | null
+    deleted_at: string | null
   }
 }
 
-const sqlite = new Database(env.SQLITE_FILENAME)
+export const db = new Kysely<DB>({
+  dialect: new SqliteDialect({
+    database: new Database(env.SQLITE_FILENAME),
+  }),
+  log: (event) => {
+    if (event.level === 'error') {
+      logger.error(event.error, 'sql error')
+    }
 
-export const db = drizzle(sqlite, { logger: new DatabaseLogger() })
+    logger.info({
+      msg: 'sql log',
+      query: event.query.sql.replaceAll('"', '`'),
+      params: event.query.parameters,
+      durationMs: event.queryDurationMillis,
+    })
+  },
+})

@@ -5,10 +5,7 @@
     "build": "tsup",
     "start": "node dist/index.mjs",
     "lint": "tsc --noEmit && prettier --check .",
-    "format": "prettier --write .",
-    "migration:generate": "drizzle-kit generate:sqlite",
-    "migration:check": "drizzle-kit check:sqlite",
-    "migration:run": "node script/migration.mjs"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "5.0.0",
@@ -16,9 +13,9 @@
     "@hono/zod-validator": "0.1.2",
     "better-sqlite3": "8.4.0",
     "dayjs": "1.11.7",
-    "drizzle-orm": "0.26.1",
     "envey": "1.1.2",
     "hono": "3.2.2",
+    "kysely": "0.25.0",
     "nanoid": "4.0.2",
     "pino": "8.14.1",
     "pino-pretty": "10.0.0",
@@ -29,7 +26,6 @@
     "@types/better-sqlite3": "7.6.4",
     "@types/node": "20.2.5",
     "dotenv-cli": "7.2.1",
-    "drizzle-kit": "0.18.1",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",

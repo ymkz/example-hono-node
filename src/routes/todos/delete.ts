@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
-import { eq, sql } from 'drizzle-orm'
 import { Hono } from 'hono'
+import { sql } from 'kysely'
 import { z } from 'zod'
 import { db } from '../../db'
-import { todos } from '../../db/schemas/todos'
 import { registry } from '../../utils/openapi'
 
 const todosDeleteParam = z.object({
@@ -16,16 +15,16 @@ const todosDeleteParam = z.object({
 export const todosDeleteRoute = new Hono().delete(
   '/',
   zValidator('param', todosDeleteParam),
-  (ctx) => {
+  async (ctx) => {
     const { id } = ctx.req.valid('param')
 
-    // 論理削除
-    const result = db
-      .update(todos)
-      .set({ deletedAt: sql`DATETIME('now', 'localtime')` })
-      .where(eq(todos.id, id))
-      .returning()
-      .get()
+    // 物理削除ではなく論理削除する
+    const result = await db
+      .updateTable('todos')
+      .set({ deleted_at: sql`DATETIME('now', 'localtime')` })
+      .where('todos.id', '=', id)
+      .returningAll()
+      .executeTakeFirst()
 
     if (!result) {
       return ctx.body(null, 404)
