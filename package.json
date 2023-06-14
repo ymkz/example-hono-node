@@ -8,13 +8,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "5.0.0",
+    "@asteasolutions/zod-to-openapi": "5.1.0",
     "@hono/node-server": "1.0.2",
-    "@hono/zod-validator": "0.1.2",
+    "@hono/zod-validator": "0.1.3",
     "better-sqlite3": "8.4.0",
-    "dayjs": "1.11.7",
-    "envey": "1.1.2",
-    "hono": "3.2.2",
+    "dayjs": "1.11.8",
+    "envey": "1.1.3",
+    "hono": "3.2.5",
     "kysely": "0.25.0",
     "nanoid": "4.0.2",
     "pino": "8.14.1",
@@ -24,11 +24,11 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.4",
-    "@types/node": "20.2.5",
+    "@types/node": "20.3.1",
     "dotenv-cli": "7.2.1",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
-    "typescript": "5.0.4",
+    "typescript": "5.1.3",
     "yaml": "2.3.1"
   }
 }
