@@ -23,7 +23,7 @@ paths:
                 - title
               additionalProperties: false
       responses:
-        '200':
+        "200":
           description: todoの新規作成成功
           content:
             application/json:
@@ -45,11 +45,11 @@ paths:
                   updated_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                   deleted_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                 required:
                   - id
                   - title
@@ -72,7 +72,7 @@ paths:
           name: status
           in: query
       responses:
-        '200':
+        "200":
           description: todoの一覧取得成功
           content:
             application/json:
@@ -93,11 +93,11 @@ paths:
                     updated_at:
                       type:
                         - string
-                        - 'null'
+                        - "null"
                     deleted_at:
                       type:
                         - string
-                        - 'null'
+                        - "null"
                   required:
                     - id
                     - title
@@ -106,21 +106,21 @@ paths:
                     - updated_at
                     - deleted_at
                   additionalProperties: false
-  '/todos/{id}':
+  "/todos/{id}":
     delete:
       summary: todoの削除
       parameters:
         - schema:
             type:
               - number
-              - 'null'
+              - "null"
           required: false
           name: id
           in: path
       responses:
-        '200':
+        "200":
           description: todoの削除成功
-        '404':
+        "404":
           description: 対象のtodoが存在しない
     get:
       summary: todoの取得
@@ -128,12 +128,12 @@ paths:
         - schema:
             type:
               - number
-              - 'null'
+              - "null"
           required: false
           name: id
           in: path
       responses:
-        '200':
+        "200":
           description: todoの取得成功
           content:
             application/json:
@@ -152,11 +152,11 @@ paths:
                   updated_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                   deleted_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                 required:
                   - id
                   - title
@@ -165,7 +165,7 @@ paths:
                   - updated_at
                   - deleted_at
                 additionalProperties: false
-        '404':
+        "404":
           description: 対象のtodoが存在しない
     patch:
       summary: todoの更新
@@ -173,7 +173,7 @@ paths:
         - schema:
             type:
               - number
-              - 'null'
+              - "null"
           required: false
           name: id
           in: path
@@ -194,7 +194,7 @@ paths:
                     - done
               additionalProperties: false
       responses:
-        '200':
+        "200":
           description: todoの更新成功
           content:
             application/json:
@@ -213,11 +213,11 @@ paths:
                   updated_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                   deleted_at:
                     type:
                       - string
-                      - 'null'
+                      - "null"
                 required:
                   - id
                   - title
@@ -246,7 +246,7 @@ paths:
           name: status
           in: query
       responses:
-        '200':
+        "200":
           description: todoの検索成功
           content:
             application/json:
@@ -267,11 +267,11 @@ paths:
                     updated_at:
                       type:
                         - string
-                        - 'null'
+                        - "null"
                     deleted_at:
                       type:
                         - string
-                        - 'null'
+                        - "null"
                   required:
                     - id
                     - title
