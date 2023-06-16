@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todoListQuery = z.object({
+const todoListQuery = z.strictObject({
   status: z.enum(['progress', 'pending', 'done']).default('progress'),
 })
 

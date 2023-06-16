@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosIdPathParam = z.object({
+const todosIdPathParam = z.strictObject({
   id: z.coerce.number(),
 })
 

@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosDeletePathParam = z.object({
+const todosDeletePathParam = z.strictObject({
   id: z.coerce.number(),
 })
 

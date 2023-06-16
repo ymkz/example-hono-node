@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosCreateBody = z.object({
+const todosCreateBody = z.strictObject({
   title: z.string().min(1),
 })
 

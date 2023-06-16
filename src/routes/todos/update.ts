@@ -5,11 +5,11 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosUpdatePathParam = z.object({
+const todosUpdatePathParam = z.strictObject({
   id: z.coerce.number(),
 })
 
-const todosUpdateBody = z.object({
+const todosUpdateBody = z.strictObject({
   title: z.string().min(1).optional(),
   status: z.enum(['progress', 'pending', 'done']).optional(),
 })
