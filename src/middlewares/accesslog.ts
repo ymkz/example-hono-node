@@ -33,7 +33,7 @@ export const accesslogMiddleware = (): MiddlewareHandler => {
     logger.info({
       msg: 'response completed',
       status: ctx.res.status,
-      responseTimeMs: time(start),
+      durationMs: time(start),
     })
   }
 }
