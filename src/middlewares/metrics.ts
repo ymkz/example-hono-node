@@ -20,10 +20,10 @@ export const metricsMiddleware = (): MiddlewareHandler => {
 
     if (
       pathname.includes('/service-worker') ||
-      pathname.includes('/healthz') ||
+      pathname.includes('/hono-nodejs') ||
       pathname.includes('/favicon') ||
-      pathname.includes('/metrics') ||
-      pathname.includes('/docs')
+      pathname.includes('/healthz') ||
+      pathname.includes('/metrics')
     ) {
       return await next()
     }
