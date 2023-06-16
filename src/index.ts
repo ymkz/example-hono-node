@@ -27,7 +27,11 @@ app.route('/todos', todosRoute)
 
 if (config.NODE_ENV !== 'production') {
   writeOpenAPIDocument()
-  app.get('/docs/*', serveStatic())
+  app.get('/hono-nodejs', serveStatic({ path: 'docs/index.html' }))
+  app.get(
+    '/hono-nodejs/openapi.yaml',
+    serveStatic({ path: 'docs/openapi.yaml' })
+  )
 }
 
 serve(app, () => {
