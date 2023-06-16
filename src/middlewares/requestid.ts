@@ -1,16 +1,16 @@
 import { MiddlewareHandler } from 'hono'
 import { nanoid } from 'nanoid'
-import { AsyncLocalStorage } from 'node:async_hooks'
-import { Logger } from 'pino'
-import { loggerInstance } from '../utils/logger'
+import { context } from '../utils/logger/context'
+import { pinoInstance } from '../utils/logger/instance'
 
-export const context = new AsyncLocalStorage<Map<'logger', Logger>>()
-
+/**
+ * @see https://blog.logrocket.com/logging-with-pino-and-asynclocalstorage-in-node-js/
+ */
 export const requestIdMiddleware = (): MiddlewareHandler => {
   return async (ctx, next) => {
     const requestId = ctx.req.header('x-request-id') ?? nanoid()
 
-    const child = loggerInstance.child({ requestId })
+    const child = pinoInstance.child({ requestId })
     const store = new Map()
 
     store.set('logger', child)
