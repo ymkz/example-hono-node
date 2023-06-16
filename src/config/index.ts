@@ -4,7 +4,7 @@ import { z } from 'zod'
 const schema = {
   NODE_ENV: {
     env: 'NODE_ENV',
-    format: z.enum(['production', 'development', 'test']).optional(),
+    format: z.enum(['production', 'development', 'test']),
   },
   SQLITE_FILENAME: {
     env: 'SQLITE_FILENAME',
