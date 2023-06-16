@@ -55,8 +55,10 @@ paths:
       summary: todoの削除
       parameters:
         - schema:
-            type: string
-          required: true
+            type:
+              - number
+              - 'null'
+          required: false
           name: id
           in: path
       responses:
@@ -68,8 +70,10 @@ paths:
       summary: todoの取得
       parameters:
         - schema:
-            type: string
-          required: true
+            type:
+              - number
+              - 'null'
+          required: false
           name: id
           in: path
       responses:
@@ -86,8 +90,10 @@ paths:
       summary: todoの更新
       parameters:
         - schema:
-            type: string
-          required: true
+            type:
+              - number
+              - 'null'
+          required: false
           name: id
           in: path
       requestBody:

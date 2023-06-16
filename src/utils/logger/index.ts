@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { LoggerOptions, pino } from 'pino'
+import { config } from '../../config'
 import { context } from '../../middlewares/requestid'
-import { env } from '../env'
 
 const options: LoggerOptions = {
   timestamp: () => {
@@ -18,7 +18,7 @@ const options: LoggerOptions = {
 }
 
 export const loggerInstance =
-  env.NODE_ENV === 'production'
+  config.NODE_ENV === 'production'
     ? pino({ ...options })
     : pino({ ...options, transport: { target: 'pino-pretty' } })
 

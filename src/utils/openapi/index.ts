@@ -4,12 +4,12 @@ import {
 } from '@asteasolutions/zod-to-openapi'
 import { writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import yaml from 'yaml'
-import { logger } from '../log'
+import { stringify } from 'yaml'
+import { logger } from '../logger'
 
 export const registry = new OpenAPIRegistry()
 
-export const writeOpenAPIDocument = async () => {
+export const writeOpenAPIDocument = () => {
   const generator = new OpenApiGeneratorV31(registry.definitions)
 
   const docs = generator.generateDocument({
@@ -21,10 +21,9 @@ export const writeOpenAPIDocument = async () => {
     },
   })
 
-  writeFile(
-    resolve(process.cwd(), 'docs/openapi.yaml'),
-    yaml.stringify(docs)
-  ).then(() => {
-    logger.info('openapi.yaml generated')
-  })
+  writeFile(resolve(process.cwd(), 'docs/openapi.yaml'), stringify(docs)).then(
+    () => {
+      logger.info('openapi.yaml generated')
+    }
+  )
 }

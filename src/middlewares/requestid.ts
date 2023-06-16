@@ -2,7 +2,7 @@ import { MiddlewareHandler } from 'hono'
 import { nanoid } from 'nanoid'
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { Logger } from 'pino'
-import { loggerInstance } from '../utils/log'
+import { loggerInstance } from '../utils/logger'
 
 export const context = new AsyncLocalStorage<Map<'logger', Logger>>()
 

@@ -5,11 +5,8 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosUpdateParam = z.object({
-  id: z
-    .string()
-    .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
-    .transform((v) => Number(v)),
+const todosUpdatePathParam = z.object({
+  id: z.coerce.number(),
 })
 
 const todosUpdateBody = z.object({
@@ -19,7 +16,7 @@ const todosUpdateBody = z.object({
 
 export const todosUpdateRoute = new Hono().patch(
   '/',
-  zValidator('param', todosUpdateParam),
+  zValidator('param', todosUpdatePathParam),
   zValidator('json', todosUpdateBody),
   async (ctx) => {
     const { id } = ctx.req.valid('param')
@@ -47,7 +44,7 @@ registry.registerPath({
   path: '/todos/{id}',
   summary: 'todoの更新',
   request: {
-    params: todosUpdateParam,
+    params: todosUpdatePathParam,
     body: {
       content: {
         'application/json': {

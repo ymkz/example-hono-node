@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3'
 import { Generated, Kysely, SqliteDialect } from 'kysely'
-import { env } from '../utils/env'
-import { logger } from '../utils/log'
+import { config } from '../config'
+import { logger } from '../utils/logger'
 
 type DB = {
   todos: {
@@ -16,18 +16,19 @@ type DB = {
 
 export const db = new Kysely<DB>({
   dialect: new SqliteDialect({
-    database: new Database(env.SQLITE_FILENAME),
+    database: new Database(config.SQLITE_FILENAME),
   }),
   log: (event) => {
+    logger.info(
+      {
+        query: event.query.sql.replaceAll('"', '`'),
+        params: event.query.parameters,
+        durationMs: event.queryDurationMillis,
+      },
+      'sql executed'
+    )
     if (event.level === 'error') {
-      logger.error(event.error, 'sql error')
+      logger.error(event.error, 'sql error occurred')
     }
-
-    logger.info({
-      msg: 'sql log',
-      query: event.query.sql.replaceAll('"', '`'),
-      params: event.query.parameters,
-      durationMs: event.queryDurationMillis,
-    })
   },
 })

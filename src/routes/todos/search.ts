@@ -14,7 +14,6 @@ export const todosSearchRoute = new Hono().get(
   zValidator('query', todosSearchQuery),
   async (ctx) => {
     const { title, status } = ctx.req.valid('query')
-    console.log(title, status)
 
     let query = db
       .selectFrom('todos')

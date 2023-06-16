@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono'
-import { logger } from '../utils/log'
+import { logger } from '../utils/logger'
 
 const time = (start: number) => {
   const delta = performance.now() - start
@@ -11,6 +11,7 @@ export const accesslogMiddleware = (): MiddlewareHandler => {
     const { pathname } = new URL(ctx.req.url)
 
     if (
+      pathname.includes('/service-worker') ||
       pathname.includes('/healthz') ||
       pathname.includes('/favicon') ||
       pathname.includes('/metrics') ||

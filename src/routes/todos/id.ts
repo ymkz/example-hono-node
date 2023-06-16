@@ -4,16 +4,13 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosIdParam = z.object({
-  id: z
-    .string()
-    .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
-    .transform((v) => Number(v)),
+const todosIdPathParam = z.object({
+  id: z.coerce.number(),
 })
 
 export const todosIdRoute = new Hono().get(
   '/',
-  zValidator('param', todosIdParam),
+  zValidator('param', todosIdPathParam),
   async (ctx) => {
     const { id } = ctx.req.valid('param')
 
@@ -37,7 +34,7 @@ registry.registerPath({
   path: '/todos/{id}',
   summary: 'todoの取得',
   request: {
-    params: todosIdParam,
+    params: todosIdPathParam,
   },
   responses: {
     200: {

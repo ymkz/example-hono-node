@@ -5,16 +5,13 @@ import { z } from 'zod'
 import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
-const todosDeleteParam = z.object({
-  id: z
-    .string()
-    .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
-    .transform((v) => Number(v)),
+const todosDeletePathParam = z.object({
+  id: z.coerce.number(),
 })
 
 export const todosDeleteRoute = new Hono().delete(
   '/',
-  zValidator('param', todosDeleteParam),
+  zValidator('param', todosDeletePathParam),
   async (ctx) => {
     const { id } = ctx.req.valid('param')
 
@@ -39,7 +36,7 @@ registry.registerPath({
   path: '/todos/{id}',
   summary: 'todoの削除',
   request: {
-    params: todosDeleteParam,
+    params: todosDeletePathParam,
   },
   responses: {
     200: {

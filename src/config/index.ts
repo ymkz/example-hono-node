@@ -12,4 +12,4 @@ const schema = {
   },
 } satisfies EnveySchema
 
-export const env = createConfig(z, schema)
+export const config = createConfig(z, schema)
