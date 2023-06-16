@@ -7,7 +7,10 @@ import { todo } from '../../db/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todosUpdatePathParam = z.strictObject({
-  id: z.coerce.number(),
+  id: z
+    .string()
+    .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
+    .transform((v) => Number(v)),
 })
 
 const todosUpdateBody = z.strictObject({

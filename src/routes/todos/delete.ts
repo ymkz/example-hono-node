@@ -6,7 +6,10 @@ import { db } from '../../db'
 import { registry } from '../../utils/openapi'
 
 const todosDeletePathParam = z.strictObject({
-  id: z.coerce.number(),
+  id: z
+    .string()
+    .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
+    .transform((v) => Number(v)),
 })
 
 export const todosDeleteRoute = new Hono().delete(
