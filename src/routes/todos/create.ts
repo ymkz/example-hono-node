@@ -2,6 +2,7 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { db } from '../../db'
+import { todo } from '../../db/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todosCreateBody = z.strictObject({
@@ -42,7 +43,7 @@ registry.registerPath({
       description: 'todoの新規作成成功',
       content: {
         'application/json': {
-          schema: z.object({}),
+          schema: todo,
         },
       },
     },

@@ -21,6 +21,7 @@ paths:
                   minLength: 1
               required:
                 - title
+              additionalProperties: false
       responses:
         '200':
           description: todoの新規作成成功
@@ -28,7 +29,35 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: &a1
+                      - progress
+                      - pending
+                      - done
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - 'null'
+                  deleted_at:
+                    type:
+                      - string
+                      - 'null'
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
+                additionalProperties: false
     get:
       summary: todoの一覧取得
       parameters:
@@ -48,8 +77,35 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties: {}
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: *a1
+                    created_at:
+                      type: string
+                    updated_at:
+                      type:
+                        - string
+                        - 'null'
+                    deleted_at:
+                      type:
+                        - string
+                        - 'null'
+                  required:
+                    - id
+                    - title
+                    - status
+                    - created_at
+                    - updated_at
+                    - deleted_at
+                  additionalProperties: false
   '/todos/{id}':
     delete:
       summary: todoの削除
@@ -83,7 +139,32 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: *a1
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - 'null'
+                  deleted_at:
+                    type:
+                      - string
+                      - 'null'
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
+                additionalProperties: false
         '404':
           description: 対象のtodoが存在しない
     patch:
@@ -111,6 +192,7 @@ paths:
                     - progress
                     - pending
                     - done
+              additionalProperties: false
       responses:
         '200':
           description: todoの更新成功
@@ -118,7 +200,32 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: *a1
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - 'null'
+                  deleted_at:
+                    type:
+                      - string
+                      - 'null'
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
+                additionalProperties: false
   /todos/search:
     get:
       summary: todoの検索
@@ -144,6 +251,33 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties: {}
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: *a1
+                    created_at:
+                      type: string
+                    updated_at:
+                      type:
+                        - string
+                        - 'null'
+                    deleted_at:
+                      type:
+                        - string
+                        - 'null'
+                  required:
+                    - id
+                    - title
+                    - status
+                    - created_at
+                    - updated_at
+                    - deleted_at
+                  additionalProperties: false
 webhooks: {}

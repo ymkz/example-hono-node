@@ -1,17 +1,11 @@
 import Database from 'better-sqlite3'
-import { Generated, Kysely, SqliteDialect } from 'kysely'
+import { Kysely, SqliteDialect } from 'kysely'
 import { config } from '../config'
 import { logger } from '../utils/logger'
+import { TodosTable } from './schema/todos'
 
 type DB = {
-  todos: {
-    id: Generated<number>
-    title: string
-    status: Generated<'progress' | 'pending' | 'done'>
-    created_at: Generated<string>
-    updated_at: string | null
-    deleted_at: string | null
-  }
+  todos: TodosTable
 }
 
 export const db = new Kysely<DB>({

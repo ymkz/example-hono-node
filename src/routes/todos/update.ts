@@ -3,6 +3,7 @@ import { Hono } from 'hono'
 import { sql } from 'kysely'
 import { z } from 'zod'
 import { db } from '../../db'
+import { todo } from '../../db/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todosUpdatePathParam = z.strictObject({
@@ -58,7 +59,7 @@ registry.registerPath({
       description: 'todoの更新成功',
       content: {
         'application/json': {
-          schema: z.object({}),
+          schema: todo,
         },
       },
     },

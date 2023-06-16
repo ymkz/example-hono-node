@@ -2,6 +2,7 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { db } from '../../db'
+import { todos } from '../../db/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todoListQuery = z.strictObject({
@@ -38,7 +39,7 @@ registry.registerPath({
       description: 'todoの一覧取得成功',
       content: {
         'application/json': {
-          schema: z.object({}),
+          schema: todos,
         },
       },
     },
