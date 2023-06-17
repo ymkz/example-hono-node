@@ -1,8 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { db } from '../../db'
-import { todos } from '../../db/schema/todos'
+import { db } from '../../database'
+import { todos } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todosSearchQuery = z.strictObject({

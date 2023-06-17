@@ -2,7 +2,7 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { sql } from 'kysely'
 import { z } from 'zod'
-import { db } from '../../db'
+import { db } from '../../database'
 import { registry } from '../../utils/openapi'
 
 const todosDeletePathParam = z.strictObject({

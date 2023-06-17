@@ -1,8 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { db } from '../../db'
-import { todo } from '../../db/schema/todos'
+import { db } from '../../database'
+import { todo } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
 const todosIdPathParam = z.strictObject({
