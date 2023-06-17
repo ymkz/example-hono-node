@@ -1,11 +1,11 @@
 import { MiddlewareHandler } from 'hono'
 import promClient from 'prom-client'
 
-const labels = ['status_code', 'method', 'path']
-
 promClient.collectDefaultMetrics()
 
-export const summary = new promClient.Summary({
+const labels = ['status_code', 'method', 'path']
+
+const summary = new promClient.Summary({
   name: 'http_request_duration_seconds',
   help: 'duration summary of http responses labeled with: ' + labels.join(', '),
   percentiles: [0.5, 0.95, 0.99],
