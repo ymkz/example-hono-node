@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono'
-import { nanoid } from 'nanoid'
+import { randomUUID } from 'node:crypto'
 import { context } from '../utils/logger/context'
 import { pinoInstance } from '../utils/logger/instance'
 
@@ -8,7 +8,7 @@ import { pinoInstance } from '../utils/logger/instance'
  */
 export const requestIdMiddleware = (): MiddlewareHandler => {
   return async (ctx, next) => {
-    const requestId = ctx.req.header('x-request-id') ?? nanoid()
+    const requestId = ctx.req.header('x-request-id') ?? randomUUID()
 
     const child = pinoInstance.child({ requestId })
     const store = new Map()
