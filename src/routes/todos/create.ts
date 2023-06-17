@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { db } from '../../database'
+import { createTodo } from '../../database/mutation/todos'
 import { todo } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
@@ -15,11 +15,7 @@ export const todosCreateRoute = new Hono().post(
   async (ctx) => {
     const { title } = ctx.req.valid('json')
 
-    const result = await db
-      .insertInto('todos')
-      .values({ title })
-      .returningAll()
-      .executeTakeFirstOrThrow()
+    const result = await createTodo(title)
 
     return ctx.json(result)
   }

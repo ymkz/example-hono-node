@@ -1,8 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { sql } from 'kysely'
 import { z } from 'zod'
-import { db } from '../../database'
+import { updateTodo } from '../../database/mutation/todos'
 import { todo } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
@@ -26,14 +25,7 @@ export const todosUpdateRoute = new Hono().patch(
     const { id } = ctx.req.valid('param')
     const { title, status } = ctx.req.valid('json')
 
-    // 明示的にupdated_atを更新する（TRIGGERによるON_UPDATEではなくアプリケーション側が責務を持つ）
-    const result = await db
-      .updateTable('todos')
-      .set({ title, status, updated_at: sql`DATETIME('now', 'localtime')` })
-      .where('todos.id', '=', id)
-      .where('todos.deleted_at', 'is', null)
-      .returningAll()
-      .executeTakeFirst() // idを条件指定しているため必ずひとつだけ更新されているはず
+    const result = await updateTodo(id, title, status)
 
     if (!result) {
       return ctx.body(null, 404)

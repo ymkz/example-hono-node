@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { db } from '../../database'
+import { findOne } from '../../database/query/todos'
 import { todos } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
@@ -16,20 +16,7 @@ export const todosSearchRoute = new Hono().get(
   async (ctx) => {
     const { title, status } = ctx.req.valid('query')
 
-    let query = db
-      .selectFrom('todos')
-      .selectAll()
-      .orderBy('todos.created_at', 'desc')
-      .where('todos.deleted_at', 'is', null)
-
-    if (title) {
-      query = query.where('todos.title', 'like', `%${title}%`)
-    }
-    if (status) {
-      query = query.where('todos.status', '=', status)
-    }
-
-    const result = await query.execute()
+    const result = await findOne(title, status)
 
     return ctx.json(result)
   }
