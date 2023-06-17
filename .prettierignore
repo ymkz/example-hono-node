@@ -1,3 +1,4 @@
 dist
+docs/openapi.yaml
 node_modules
 package-lock.json
