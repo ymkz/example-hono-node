@@ -2,7 +2,7 @@ import { sql } from 'kysely'
 import { db } from '..'
 import { Todo } from '../schema/todos'
 
-export const createTodo = async (title: string) => {
+export const createOne = async (title: string) => {
   const result = await db
     .insertInto('todos')
     .values({ title })
@@ -12,7 +12,7 @@ export const createTodo = async (title: string) => {
   return result
 }
 
-export const deleteTodo = async (id: number) => {
+export const deleteOne = async (id: number) => {
   // 論理削除
   const result = await db
     .updateTable('todos')
@@ -24,7 +24,7 @@ export const deleteTodo = async (id: number) => {
   return result
 }
 
-export const updateTodo = async (
+export const updateOne = async (
   id: number,
   title?: Todo['title'],
   status?: Todo['status']

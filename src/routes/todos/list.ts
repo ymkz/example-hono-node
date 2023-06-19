@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { findAll } from '../../database/query/todos'
+import { todosQuery } from '../../database/query'
 import { todos } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
@@ -15,7 +15,7 @@ export const todosListRoute = new Hono().get(
   async (ctx) => {
     const { status } = ctx.req.valid('query')
 
-    const result = await findAll(status)
+    const result = await todosQuery.findAll(status)
 
     return ctx.json(result)
   }

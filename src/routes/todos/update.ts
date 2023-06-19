@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { updateTodo } from '../../database/mutation/todos'
+import { todosMutation } from '../../database/mutation'
 import { todo } from '../../database/schema/todos'
 import { registry } from '../../utils/openapi'
 
@@ -25,7 +25,7 @@ export const todosUpdateRoute = new Hono().patch(
     const { id } = ctx.req.valid('param')
     const { title, status } = ctx.req.valid('json')
 
-    const result = await updateTodo(id, title, status)
+    const result = await todosMutation.updateOne(id, title, status)
 
     if (!result) {
       return ctx.body(null, 404)

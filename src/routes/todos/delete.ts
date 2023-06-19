@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
-import { deleteTodo } from '../../database/mutation/todos'
+import { todosMutation } from '../../database/mutation'
 import { registry } from '../../utils/openapi'
 
 const todosDeletePathParam = z.strictObject({
@@ -18,7 +18,7 @@ export const todosDeleteRoute = new Hono().delete(
     const { id } = ctx.req.valid('param')
 
     // 物理削除ではなく論理削除する
-    const result = await deleteTodo(id)
+    const result = await todosMutation.deleteOne(id)
 
     if (!result) {
       return ctx.body(null, 404)
