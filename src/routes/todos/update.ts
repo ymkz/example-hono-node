@@ -32,7 +32,7 @@ export const todosUpdateRoute = new Hono().patch(
     }
 
     return ctx.json(result)
-  }
+  },
 )
 
 registry.registerPath({

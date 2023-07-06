@@ -18,7 +18,7 @@ export const todosListRoute = new Hono().get(
     const result = await todosQuery.findAll(status)
 
     return ctx.json(result)
-  }
+  },
 )
 
 registry.registerPath({

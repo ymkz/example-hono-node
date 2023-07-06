@@ -25,7 +25,7 @@ export const todosIdRoute = new Hono().get(
     }
 
     return ctx.json(result)
-  }
+  },
 )
 
 registry.registerPath({

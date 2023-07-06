@@ -19,7 +19,7 @@ export const todosSearchRoute = new Hono().get(
     const result = await todosQuery.findOne(title, status)
 
     return ctx.json(result)
-  }
+  },
 )
 
 registry.registerPath({

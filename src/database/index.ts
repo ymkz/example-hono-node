@@ -19,7 +19,7 @@ export const db = new Kysely<DB>({
         params: event.query.parameters,
         durationMs: event.queryDurationMillis,
       },
-      'sql executed'
+      'sql executed',
     )
     if (event.level === 'error') {
       logger.error(event.error, 'sql error occurred')

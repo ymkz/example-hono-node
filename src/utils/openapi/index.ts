@@ -24,6 +24,6 @@ export const writeOpenAPIDocument = () => {
   writeFile(resolve(process.cwd(), 'docs/openapi.yaml'), stringify(docs)).then(
     () => {
       logger.info('openapi.yaml generated')
-    }
+    },
   )
 }

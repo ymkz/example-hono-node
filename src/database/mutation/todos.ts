@@ -27,7 +27,7 @@ export const deleteOne = async (id: number) => {
 export const updateOne = async (
   id: number,
   title?: Todo['title'],
-  status?: Todo['status']
+  status?: Todo['status'],
 ) => {
   // 明示的にupdated_atを更新する（TRIGGERによるON_UPDATEではなくアプリケーション側が責務を持つ）
   const result = await db

@@ -18,7 +18,7 @@ export const todosCreateRoute = new Hono().post(
     const result = await todosMutation.createOne(title)
 
     return ctx.json(result)
-  }
+  },
 )
 
 registry.registerPath({

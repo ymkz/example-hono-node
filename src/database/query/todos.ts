@@ -15,7 +15,7 @@ export const findAll = async (status: Todo['status']) => {
 
 export const findOne = async (
   title?: Todo['title'],
-  status?: Todo['status']
+  status?: Todo['status'],
 ) => {
   let query = db
     .selectFrom('todos')

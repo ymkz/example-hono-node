@@ -25,7 +25,7 @@ export const todosDeleteRoute = new Hono().delete(
     }
 
     return ctx.body(null, 200)
-  }
+  },
 )
 
 registry.registerPath({
