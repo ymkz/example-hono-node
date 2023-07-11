@@ -1,7 +1,7 @@
-import { createConfig, EnveySchema } from 'envey'
+import { createConfig } from 'envey'
 import { z } from 'zod'
 
-const schema = {
+export const config = createConfig(z, {
   NODE_ENV: {
     env: 'NODE_ENV',
     format: z.enum(['production', 'development', 'test']),
@@ -10,6 +10,4 @@ const schema = {
     env: 'SQLITE_FILENAME',
     format: z.string(),
   },
-} satisfies EnveySchema
-
-export const config = createConfig(z, schema)
+})
