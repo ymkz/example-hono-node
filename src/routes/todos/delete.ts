@@ -2,7 +2,7 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { ZodOpenApiOperationObject } from 'zod-openapi'
-import { todosMutation } from '../../database/mutation'
+import { todosMutation } from '../../repositories/mutation'
 
 const todosDeletePathParam = z.object({
   id: z
@@ -34,26 +34,9 @@ export const todosDeleteOperation: ZodOpenApiOperationObject = {
     path: todosDeletePathParam,
   },
   responses: {
-    200: {
-      content: {
-        'application/json': {
-          schema: {},
-        },
-      },
-    },
-    400: {
-      content: {
-        'application/json': {
-          schema: {},
-        },
-      },
-    },
-    500: {
-      content: {
-        'application/json': {
-          schema: {},
-        },
-      },
-    },
+    200: { content: { 'application/json': { schema: {} } } },
+    400: { content: { 'application/json': { schema: {} } } },
+    404: { content: { 'application/json': { schema: {} } } },
+    500: { content: { 'application/json': { schema: {} } } },
   },
 }

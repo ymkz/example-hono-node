@@ -35,7 +35,7 @@ export const findOne = async (
   return result
 }
 
-export const findOneById = async (id: number) => {
+export const findOneById = async (id: Todo['id']) => {
   const result = await db
     .selectFrom('todos')
     .selectAll()

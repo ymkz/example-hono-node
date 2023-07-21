@@ -10,7 +10,7 @@ export type TodosTable = {
   deleted_at: string | null
 }
 
-export const todo = z.strictObject({
+export const todoSchema = z.object({
   id: z.number(),
   title: z.string(),
   status: z.enum(['progress', 'pending', 'done']),
@@ -19,8 +19,8 @@ export const todo = z.strictObject({
   deleted_at: z.string().nullable(),
 })
 
-export const todos = todo.array()
+export const todosSchema = todoSchema.array()
 
-export type Todo = z.infer<typeof todo>
+export type Todo = z.infer<typeof todoSchema>
 
-export type Todos = z.infer<typeof todos>
+export type Todos = z.infer<typeof todosSchema>
