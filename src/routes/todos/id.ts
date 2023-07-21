@@ -2,18 +2,20 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { ZodOpenApiOperationObject } from 'zod-openapi'
+import { todoSchema } from '~/repositories/schema/todos'
 import { todosQuery } from '../../repositories/query'
 
-const todosIdPathParam = z.strictObject({
+const requestPathParam = z.object({
   id: z
     .string()
     .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
     .transform((v) => Number(v)),
 })
+const response200 = todoSchema
 
 export const todosIdRoute = new Hono().get(
   '/todos/:id',
-  zValidator('param', todosIdPathParam),
+  zValidator('param', requestPathParam),
   async (ctx) => {
     const { id } = ctx.req.valid('param')
 
@@ -30,10 +32,10 @@ export const todosIdRoute = new Hono().get(
 export const todosIdOperation: ZodOpenApiOperationObject = {
   description: 'Todoの取得',
   requestParams: {
-    path: todosIdPathParam,
+    path: requestPathParam,
   },
   responses: {
-    200: { content: { 'application/json': { schema: {} } } },
+    200: { content: { 'application/json': { schema: response200 } } },
     400: { content: { 'application/json': { schema: {} } } },
     404: { content: { 'application/json': { schema: {} } } },
     500: { content: { 'application/json': { schema: {} } } },

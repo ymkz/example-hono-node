@@ -21,7 +21,38 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: &a1
+                        - progress
+                        - pending
+                        - done
+                    created_at:
+                      type: string
+                    updated_at:
+                      type:
+                        - string
+                        - "null"
+                    deleted_at:
+                      type:
+                        - string
+                        - "null"
+                  required:
+                    - id
+                    - title
+                    - status
+                    - created_at
+                    - updated_at
+                    - deleted_at
         "400":
           content:
             application/json:
@@ -47,7 +78,33 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: *a1
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - "null"
+                  deleted_at:
+                    type:
+                      - string
+                      - "null"
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
         "400":
           content:
             application/json:
@@ -69,7 +126,33 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: *a1
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - "null"
+                  deleted_at:
+                    type:
+                      - string
+                      - "null"
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
         "400":
           content:
             application/json:
@@ -105,12 +188,37 @@ paths:
                     - progress
                     - pending
                     - done
-              additionalProperties: false
       responses:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum: *a1
+                  created_at:
+                    type: string
+                  updated_at:
+                    type:
+                      - string
+                      - "null"
+                  deleted_at:
+                    type:
+                      - string
+                      - "null"
+                required:
+                  - id
+                  - title
+                  - status
+                  - created_at
+                  - updated_at
+                  - deleted_at
         "400":
           content:
             application/json:
@@ -135,7 +243,8 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: "null"
         "400":
           content:
             application/json:
@@ -169,7 +278,35 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: *a1
+                    created_at:
+                      type: string
+                    updated_at:
+                      type:
+                        - string
+                        - "null"
+                    deleted_at:
+                      type:
+                        - string
+                        - "null"
+                  required:
+                    - id
+                    - title
+                    - status
+                    - created_at
+                    - updated_at
+                    - deleted_at
         "400":
           content:
             application/json:

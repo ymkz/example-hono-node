@@ -2,16 +2,18 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { ZodOpenApiOperationObject } from 'zod-openapi'
+import { todosSchema } from '~/repositories/schema/todos'
 import { todosQuery } from '../../repositories/query'
 
-const todosSearchQuery = z.strictObject({
-  title: z.string().min(1).optional(),
+const requestQuery = z.object({
+  title: z.string().nonempty().optional(),
   status: z.enum(['progress', 'pending', 'done']).optional(),
 })
+const response200 = todosSchema
 
 export const todosSearchRoute = new Hono().get(
   '/todos/search',
-  zValidator('query', todosSearchQuery),
+  zValidator('query', requestQuery),
   async (ctx) => {
     const { title, status } = ctx.req.valid('query')
 
@@ -24,10 +26,10 @@ export const todosSearchRoute = new Hono().get(
 export const todosSearchOperation: ZodOpenApiOperationObject = {
   description: 'Todoの検索',
   requestParams: {
-    query: todosSearchQuery,
+    query: requestQuery,
   },
   responses: {
-    200: { content: { 'application/json': { schema: {} } } },
+    200: { content: { 'application/json': { schema: response200 } } },
     400: { content: { 'application/json': { schema: {} } } },
     500: { content: { 'application/json': { schema: {} } } },
   },
