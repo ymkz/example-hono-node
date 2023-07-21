@@ -9,7 +9,7 @@ const todoListQuery = z.strictObject({
 })
 
 export const todosListRoute = new Hono().get(
-  '/',
+  '/todos',
   zValidator('query', todoListQuery),
   async (ctx) => {
     const { status } = ctx.req.valid('query')

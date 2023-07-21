@@ -12,7 +12,7 @@ const todosDeletePathParam = z.object({
 })
 
 export const todosDeleteRoute = new Hono().delete(
-  '/',
+  '/todos/:id',
   zValidator('param', todosDeletePathParam),
   async (ctx) => {
     const { id } = ctx.req.valid('param')

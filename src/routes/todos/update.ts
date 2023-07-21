@@ -17,7 +17,7 @@ const todosUpdateBody = z.strictObject({
 })
 
 export const todosUpdateRoute = new Hono().patch(
-  '/',
+  '/todos/:id',
   zValidator('param', todosUpdatePathParam),
   zValidator('json', todosUpdateBody),
   async (ctx) => {

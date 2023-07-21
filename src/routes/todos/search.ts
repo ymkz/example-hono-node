@@ -10,7 +10,7 @@ const todosSearchQuery = z.strictObject({
 })
 
 export const todosSearchRoute = new Hono().get(
-  '/',
+  '/todos/search',
   zValidator('query', todosSearchQuery),
   async (ctx) => {
     const { title, status } = ctx.req.valid('query')

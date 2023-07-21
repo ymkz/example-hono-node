@@ -12,7 +12,7 @@ const todosIdPathParam = z.strictObject({
 })
 
 export const todosIdRoute = new Hono().get(
-  '/',
+  '/todos/:id',
   zValidator('param', todosIdPathParam),
   async (ctx) => {
     const { id } = ctx.req.valid('param')

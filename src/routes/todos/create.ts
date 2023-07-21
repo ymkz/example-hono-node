@@ -9,7 +9,7 @@ const todosCreateBody = z.object({
 })
 
 export const todosCreateRoute = new Hono().post(
-  '/',
+  '/todos',
   zValidator('json', todosCreateBody),
   async (ctx) => {
     const { title } = ctx.req.valid('json')

@@ -9,7 +9,12 @@ import { requestIdMiddleware } from './middlewares/requestid'
 import { docsRoute } from './routes/docs'
 import { healthzRoute } from './routes/healthz'
 import { metricsRoute } from './routes/metrics'
-import { todosRoute } from './routes/todos'
+import { todosCreateRoute } from './routes/todos/create'
+import { todosDeleteRoute } from './routes/todos/delete'
+import { todosIdRoute } from './routes/todos/id'
+import { todosListRoute } from './routes/todos/list'
+import { todosSearchRoute } from './routes/todos/search'
+import { todosUpdateRoute } from './routes/todos/update'
 import { logger } from './utils/logger'
 import { writeOpenAPIDocument } from './utils/openapi'
 
@@ -21,13 +26,18 @@ app.use('*', requestIdMiddleware())
 app.use('*', accesslogMiddleware())
 app.use('*', metricsMiddleware())
 
-app.route('/healthz', healthzRoute)
-app.route('/metrics', metricsRoute)
-app.route('/todos', todosRoute)
+app.route('/', healthzRoute)
+app.route('/', metricsRoute)
+app.route('/', todosListRoute)
+app.route('/', todosCreateRoute)
+app.route('/', todosIdRoute)
+app.route('/', todosUpdateRoute)
+app.route('/', todosDeleteRoute)
+app.route('/', todosSearchRoute)
 
 if (process.env.NODE_ENV !== 'production') {
   writeOpenAPIDocument()
-  app.route('/example-hono-on-node', docsRoute)
+  app.route('/', docsRoute)
 }
 
 serve(app, () => {
