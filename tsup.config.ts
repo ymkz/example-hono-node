@@ -1,10 +1,9 @@
-import { config } from 'dotenv'
 import { defineConfig } from 'tsup'
 
-config({ path: '.env.local' })
-
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ['src/**/*.ts'],
   format: 'esm',
+  clean: true,
+  bundle: true,
   treeshake: true,
 })
