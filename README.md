@@ -1,4 +1,4 @@
-# hono-nodejs
+# example-hono-on-node
 
 ### 設定値について
 

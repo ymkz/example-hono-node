@@ -20,7 +20,7 @@ export const metricsMiddleware = (): MiddlewareHandler => {
 
     if (
       pathname.includes('/service-worker') ||
-      pathname.includes('/hono-nodejs') ||
+      pathname.includes('/example-hono-on-node') ||
       pathname.includes('/favicon') ||
       pathname.includes('/healthz') ||
       pathname.includes('/metrics')

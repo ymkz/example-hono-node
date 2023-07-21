@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hono-nodejs
-  namespace: hono-nodejs
+  name: hono-on-node
+  namespace: hono-on-node
 spec:
   containers:
     - name: app
-      image: docker.io/library/hono-nodejs:latest
+      image: docker.io/library/hono-on-node:latest
       envFrom:
         - configMapRef:
-            name: hono-nodejs-configmap
+            name: hono-on-node-config

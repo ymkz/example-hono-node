@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosMutation } from '../../database/mutation'
-import { todo } from '../../database/schema/todos'
-import { registry } from '../../utils/openapi'
 
 const todosUpdatePathParam = z.strictObject({
   id: z
@@ -35,28 +34,46 @@ export const todosUpdateRoute = new Hono().patch(
   },
 )
 
-registry.registerPath({
-  method: 'patch',
-  path: '/todos/{id}',
-  summary: 'todoの更新',
-  request: {
-    params: todosUpdatePathParam,
-    body: {
-      content: {
-        'application/json': {
-          schema: todosUpdateBody,
-        },
+export const todosUpdateOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの更新',
+  requestParams: {
+    path: todosUpdatePathParam,
+  },
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: todosUpdateBody,
       },
     },
   },
   responses: {
     200: {
-      description: 'todoの更新成功',
       content: {
         'application/json': {
-          schema: todo,
+          schema: {},
+        },
+      },
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    404: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
         },
       },
     },
   },
-})
+}

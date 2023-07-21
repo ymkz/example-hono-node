@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosQuery } from '../../database/query'
-import { todos } from '../../database/schema/todos'
-import { registry } from '../../utils/openapi'
 
 const todosSearchQuery = z.strictObject({
   title: z.string().min(1).optional(),
@@ -22,21 +21,32 @@ export const todosSearchRoute = new Hono().get(
   },
 )
 
-registry.registerPath({
-  method: 'get',
-  path: '/todos/search',
-  summary: 'todoの検索',
-  request: {
+export const todosSearchOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの検索',
+  requestParams: {
     query: todosSearchQuery,
   },
   responses: {
     200: {
-      description: 'todoの検索成功',
       content: {
         'application/json': {
-          schema: todos,
+          schema: {},
+        },
+      },
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
         },
       },
     },
   },
-})
+}

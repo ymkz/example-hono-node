@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosQuery } from '../../database/query'
-import { todos } from '../../database/schema/todos'
-import { registry } from '../../utils/openapi'
 
 const todoListQuery = z.strictObject({
   status: z.enum(['progress', 'pending', 'done']).default('progress'),
@@ -21,21 +20,32 @@ export const todosListRoute = new Hono().get(
   },
 )
 
-registry.registerPath({
-  method: 'get',
-  path: '/todos',
-  summary: 'todoの一覧取得',
-  request: {
+export const todosListOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの一覧取得',
+  requestParams: {
     query: todoListQuery,
   },
   responses: {
     200: {
-      description: 'todoの一覧取得成功',
       content: {
         'application/json': {
-          schema: todos,
+          schema: {},
+        },
+      },
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
         },
       },
     },
   },
-})
+}

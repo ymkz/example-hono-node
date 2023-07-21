@@ -1,12 +1,11 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosMutation } from '../../database/mutation'
-import { todo } from '../../database/schema/todos'
-import { registry } from '../../utils/openapi'
 
-const todosCreateBody = z.strictObject({
-  title: z.string().min(1),
+const todosCreateBody = z.object({
+  title: z.string().nonempty(),
 })
 
 export const todosCreateRoute = new Hono().post(
@@ -21,27 +20,36 @@ export const todosCreateRoute = new Hono().post(
   },
 )
 
-registry.registerPath({
-  method: 'post',
-  path: '/todos',
-  summary: 'todoの新規作成',
-  request: {
-    body: {
-      content: {
-        'application/json': {
-          schema: todosCreateBody,
-        },
+export const todosCreateOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの新規作成',
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: todosCreateBody,
       },
     },
   },
   responses: {
     200: {
-      description: 'todoの新規作成成功',
       content: {
         'application/json': {
-          schema: todo,
+          schema: {},
+        },
+      },
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
         },
       },
     },
   },
-})
+}

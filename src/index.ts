@@ -1,7 +1,7 @@
-import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { extendZodWithOpenApi } from 'zod-openapi'
 import '~/utils/env'
 import { accesslogMiddleware } from './middlewares/accesslog'
 import { metricsMiddleware } from './middlewares/metrics'
@@ -27,10 +27,10 @@ app.route('/todos', todosRoute)
 
 if (process.env.NODE_ENV !== 'production') {
   writeOpenAPIDocument()
-  app.route('/hono-nodejs', docsRoute)
+  app.route('/example-hono-on-node', docsRoute)
 }
 
 serve(app, () => {
-  logger.info(`running as ${process.env.NODE_ENV}`)
   logger.info(`ready on http://localhost:3000`)
+  logger.info(`running as ${process.env.NODE_ENV}`)
 })

@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosQuery } from '../../database/query'
-import { todo } from '../../database/schema/todos'
-import { registry } from '../../utils/openapi'
 
 const todosIdPathParam = z.strictObject({
   id: z
@@ -28,24 +27,39 @@ export const todosIdRoute = new Hono().get(
   },
 )
 
-registry.registerPath({
-  method: 'get',
-  path: '/todos/{id}',
-  summary: 'todoの取得',
-  request: {
-    params: todosIdPathParam,
+export const todosIdOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの取得',
+  requestParams: {
+    path: todosIdPathParam,
   },
   responses: {
     200: {
-      description: 'todoの取得成功',
       content: {
         'application/json': {
-          schema: todo,
+          schema: {},
+        },
+      },
+    },
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
         },
       },
     },
     404: {
-      description: '対象のtodoが存在しない',
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
     },
   },
-})
+}

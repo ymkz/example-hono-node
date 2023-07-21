@@ -1,10 +1,10 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosMutation } from '../../database/mutation'
-import { registry } from '../../utils/openapi'
 
-const todosDeletePathParam = z.strictObject({
+const todosDeletePathParam = z.object({
   id: z
     .string()
     .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
@@ -28,19 +28,32 @@ export const todosDeleteRoute = new Hono().delete(
   },
 )
 
-registry.registerPath({
-  method: 'delete',
-  path: '/todos/{id}',
-  summary: 'todoの削除',
-  request: {
-    params: todosDeletePathParam,
+export const todosDeleteOperation: ZodOpenApiOperationObject = {
+  description: 'Todoの削除',
+  requestParams: {
+    path: todosDeletePathParam,
   },
   responses: {
     200: {
-      description: 'todoの削除成功',
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
     },
-    404: {
-      description: '対象のtodoが存在しない',
+    400: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: {},
+        },
+      },
     },
   },
-})
+}
