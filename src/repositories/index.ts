@@ -1,7 +1,7 @@
 import Sqlite3Database from 'better-sqlite3'
 import { Kysely, SqliteDialect } from 'kysely'
-import { logger } from '../utils/logger'
-import { TodosTable } from './schema/todos'
+import { TodosTable } from '~/repositories/schema/todos'
+import { logger } from '~/utils/logger'
 
 type DB = {
   todos: TodosTable

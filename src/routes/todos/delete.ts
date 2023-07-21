@@ -2,7 +2,7 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { ZodOpenApiOperationObject } from 'zod-openapi'
-import { todosMutation } from '../../repositories/mutation'
+import { todosMutation } from '~/repositories/mutation'
 
 const requestPathParam = z.object({
   id: z

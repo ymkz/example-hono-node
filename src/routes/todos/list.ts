@@ -2,8 +2,8 @@ import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { ZodOpenApiOperationObject } from 'zod-openapi'
+import { todosQuery } from '~/repositories/query'
 import { todosSchema } from '~/repositories/schema/todos'
-import { todosQuery } from '../../repositories/query'
 
 const todoListQuery = z.object({
   status: z.enum(['progress', 'pending', 'done']).default('progress'),

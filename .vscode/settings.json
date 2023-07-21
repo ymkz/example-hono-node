@@ -2,7 +2,5 @@
   "editor.codeActionsOnSave": ["source.organizeImports"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "search.exclude": {
-    "**/package-lock.json": true
-  }
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

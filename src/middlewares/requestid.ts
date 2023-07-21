@@ -1,7 +1,7 @@
 import { MiddlewareHandler } from 'hono'
 import { randomUUID } from 'node:crypto'
-import { context } from '../utils/logger/context'
-import { pinoInstance } from '../utils/logger/instance'
+import { context } from '~/utils/logger/context'
+import { pinoInstance } from '~/utils/logger/instance'
 
 /**
  * @see https://blog.logrocket.com/logging-with-pino-and-asynclocalstorage-in-node-js/

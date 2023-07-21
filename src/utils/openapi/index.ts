@@ -8,7 +8,7 @@ import { todosIdOperation } from '~/routes/todos/id'
 import { todosListOperation } from '~/routes/todos/list'
 import { todosSearchOperation } from '~/routes/todos/search'
 import { todosUpdateOperation } from '~/routes/todos/update'
-import { logger } from '../logger'
+import { logger } from '~/utils/logger'
 
 export const writeOpenAPIDocument = () => {
   const docs = createDocument({

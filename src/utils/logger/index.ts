@@ -1,5 +1,5 @@
-import { context } from './context'
-import { pinoInstance } from './instance'
+import { context } from '~/utils/logger/context'
+import { pinoInstance } from '~/utils/logger/instance'
 
 export const logger = new Proxy(pinoInstance, {
   get(target, property, receiver) {

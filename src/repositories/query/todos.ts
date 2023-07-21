@@ -1,5 +1,5 @@
+import { Todo } from '~/repositories/schema/todos'
 import { db } from '..'
-import { Todo } from '../schema/todos'
 
 export const findAll = async (status: Todo['status']) => {
   const result = await db
