@@ -5,13 +5,13 @@ import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosMutation } from '~/repositories/mutation'
 import { todoSchema } from '~/repositories/schema/todos'
 
-const todosUpdatePathParam = z.object({
+const requestPathParam = z.object({
   id: z
     .string()
     .refine((v) => !isNaN(Number(v)), 'Invalid string. Expected numeric')
     .transform((v) => Number(v)),
 })
-const todosUpdateBody = z.object({
+const requestBody = z.object({
   title: z.string().min(1).optional(),
   status: z.enum(['progress', 'pending', 'done']).optional(),
 })
@@ -19,8 +19,8 @@ const response200 = todoSchema
 
 export const todosUpdateRoute = new Hono().patch(
   '/todos/:id',
-  zValidator('param', todosUpdatePathParam),
-  zValidator('json', todosUpdateBody),
+  zValidator('param', requestPathParam),
+  zValidator('json', requestBody),
   async (ctx) => {
     const { id } = ctx.req.valid('param')
     const { title, status } = ctx.req.valid('json')
@@ -38,14 +38,10 @@ export const todosUpdateRoute = new Hono().patch(
 export const todosUpdateOperation: ZodOpenApiOperationObject = {
   description: 'Todoの更新',
   requestParams: {
-    path: todosUpdatePathParam,
+    path: requestPathParam,
   },
   requestBody: {
-    content: {
-      'application/json': {
-        schema: todosUpdateBody,
-      },
-    },
+    content: { 'application/json': { schema: requestBody } },
   },
   responses: {
     200: { content: { 'application/json': { schema: response200 } } },

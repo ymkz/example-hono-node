@@ -25,11 +25,7 @@ export const todosCreateRoute = new Hono().post(
 export const todosCreateOperation: ZodOpenApiOperationObject = {
   description: 'Todoの新規作成',
   requestBody: {
-    content: {
-      'application/json': {
-        schema: requestBody,
-      },
-    },
+    content: { 'application/json': { schema: requestBody } },
   },
   responses: {
     200: { content: { 'application/json': { schema: response200 } } },

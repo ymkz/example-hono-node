@@ -5,14 +5,14 @@ import { ZodOpenApiOperationObject } from 'zod-openapi'
 import { todosQuery } from '~/repositories/query'
 import { todosSchema } from '~/repositories/schema/todos'
 
-const todoListQuery = z.object({
+const requestQuery = z.object({
   status: z.enum(['progress', 'pending', 'done']).default('progress'),
 })
 const response200 = todosSchema
 
 export const todosListRoute = new Hono().get(
   '/todos',
-  zValidator('query', todoListQuery),
+  zValidator('query', requestQuery),
   async (ctx) => {
     const { status } = ctx.req.valid('query')
 
@@ -25,7 +25,7 @@ export const todosListRoute = new Hono().get(
 export const todosListOperation: ZodOpenApiOperationObject = {
   description: 'Todoの一覧取得',
   requestParams: {
-    query: todoListQuery,
+    query: requestQuery,
   },
   responses: {
     200: { content: { 'application/json': { schema: response200 } } },
