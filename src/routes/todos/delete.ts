@@ -18,7 +18,6 @@ export const todosDeleteRoute = new Hono().delete(
   async (ctx) => {
     const { id } = ctx.req.valid('param')
 
-    // 物理削除ではなく論理削除する
     const result = await todosMutation.deleteOne(id)
 
     if (!result) {

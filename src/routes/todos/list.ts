@@ -16,7 +16,7 @@ export const todosListRoute = new Hono().get(
   async (ctx) => {
     const { status } = ctx.req.valid('query')
 
-    const result = await todosQuery.findAll(status)
+    const result = await todosQuery.findListByStatus(status)
 
     return ctx.json(result)
   },

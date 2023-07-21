@@ -1,8 +1,8 @@
 import { sql } from 'kysely'
+import { db } from '~/repositories'
 import { Todo } from '~/repositories/schema/todos'
-import { db } from '..'
 
-export const createOne = async (title: string) => {
+export const createOne = async (title: Todo['title']) => {
   const result = await db
     .insertInto('todos')
     .values({ title })
@@ -12,14 +12,16 @@ export const createOne = async (title: string) => {
   return result
 }
 
-export const deleteOne = async (id: number) => {
-  // 論理削除
+/**
+ * @description 論理削除
+ */
+export const deleteOne = async (id: Todo['id']) => {
   const result = await db
     .updateTable('todos')
     .set({ deleted_at: sql`DATETIME('now', 'localtime')` })
     .where('todos.id', '=', id)
     .returningAll()
-    .executeTakeFirst()
+    .executeTakeFirstOrThrow()
 
   return result
 }
@@ -29,14 +31,13 @@ export const updateOne = async (
   title?: Todo['title'],
   status?: Todo['status'],
 ) => {
-  // 明示的にupdated_atを更新する（TRIGGERによるON_UPDATEではなくアプリケーション側が責務を持つ）
   const result = await db
     .updateTable('todos')
     .set({ title, status, updated_at: sql`DATETIME('now', 'localtime')` })
     .where('todos.id', '=', id)
     .where('todos.deleted_at', 'is', null)
     .returningAll()
-    .executeTakeFirst() // idを条件指定しているため必ずひとつのみ更新されているはず
+    .executeTakeFirstOrThrow()
 
   return result
 }

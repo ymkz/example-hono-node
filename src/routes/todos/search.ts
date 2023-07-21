@@ -17,7 +17,7 @@ export const todosSearchRoute = new Hono().get(
   async (ctx) => {
     const { title, status } = ctx.req.valid('query')
 
-    const result = await todosQuery.findOne(title, status)
+    const result = await todosQuery.search({ title, status })
 
     return ctx.json(result)
   },
