@@ -1,6 +1,5 @@
 import Database from 'better-sqlite3'
 import { Kysely, SqliteDialect } from 'kysely'
-import { config } from '../config'
 import { logger } from '../utils/logger'
 import { TodosTable } from './schema/todos'
 
@@ -10,7 +9,7 @@ type DB = {
 
 export const db = new Kysely<DB>({
   dialect: new SqliteDialect({
-    database: new Database(config.SQLITE_FILENAME),
+    database: new Database(process.env.SQLITE_FILE),
   }),
   log: (event) => {
     logger.info(

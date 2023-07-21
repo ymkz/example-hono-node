@@ -6,4 +6,4 @@ metadata:
 data:
   TZ: Asia/Tokyo
   NODE_ENV: production
-  SQLITE_FILENAME: db.sqlite
+  SQLITE_FILE: db.sqlite
