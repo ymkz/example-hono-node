@@ -1,8 +1,17 @@
 openapi: 3.1.0
 info:
+  title: title
+  description: description
   version: 0.0.0
-  title: hono-on-node
-  description: Hono on NodeJS
+servers:
+  - url: http://localhost:3000
+    description: ローカル環境
+  - url: http://localhost:3000
+    description: 開発環境
+  - url: http://localhost:3000
+    description: ステージング環境
+  - url: http://localhost:3000
+    description: 本番環境
 paths:
   /todos:
     get:
