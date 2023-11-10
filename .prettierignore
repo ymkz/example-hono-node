@@ -1,4 +1,4 @@
 dist
-docs/openapi.yaml
 node_modules
+*.tsbuildinfo
 package-lock.json

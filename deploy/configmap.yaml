@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: hono-on-node-config
-  namespace: hono-on-node
-data:
-  TZ: Asia/Tokyo
-  NODE_ENV: production
-  SQLITE_FILE: db.sqlite

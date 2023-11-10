@@ -18,7 +18,7 @@ RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/
 RUN chmod +x /usr/local/bin/dumb-init
 
 ENV NODE_ENV production
-EXPOSE 3000
+EXPOSE 4000
 
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force

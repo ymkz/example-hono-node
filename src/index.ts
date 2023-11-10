@@ -1,46 +1,44 @@
 import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-import { accesslogMiddleware } from '~/middlewares/accesslog'
-import { metricsMiddleware } from '~/middlewares/metrics'
-import { requestIdMiddleware } from '~/middlewares/requestid'
-import { docsRoute } from '~/routes/docs'
-import { healthzRoute } from '~/routes/healthz'
-import { metricsRoute } from '~/routes/metrics'
-import { todosCreateRoute } from '~/routes/todos/create'
-import { todosDeleteRoute } from '~/routes/todos/delete'
-import { todosIdRoute } from '~/routes/todos/id'
-import { todosListRoute } from '~/routes/todos/list'
-import { todosSearchRoute } from '~/routes/todos/search'
-import { todosUpdateRoute } from '~/routes/todos/update'
-import '~/utils/env'
-import { logger } from '~/utils/logger'
-import { writeOpenAPIDocument } from '~/utils/openapi'
+import { logger } from '~/application/logging'
+import { app } from '~/presentation'
 
-extendZodWithOpenApi(z)
+const PORT = Number(process.env.PORT) || 4000
 
-const app = new Hono()
+if (process.env.APP_ENV === 'local') {
+  app.doc31('/spec/openapi.json', {
+    openapi: '3.1.0',
+    info: { version: '0.0.0', title: 'API仕様書' },
+  })
 
-app.use('*', requestIdMiddleware())
-app.use('*', accesslogMiddleware())
-app.use('*', metricsMiddleware())
+  app.get('/spec', (ctx) => {
+    return ctx.html(`<!DOCTYPE html>
+<html>
+  <head>
+    <title>API仕様書</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script
+      id="api-reference"
+      data-url="/spec/openapi.json"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+  </body>
+</html>`)
+  })
 
-app.route('/', healthzRoute)
-app.route('/', metricsRoute)
-app.route('/', todosListRoute)
-app.route('/', todosCreateRoute)
-app.route('/', todosIdRoute)
-app.route('/', todosUpdateRoute)
-app.route('/', todosDeleteRoute)
-app.route('/', todosSearchRoute)
-
-if (process.env.NODE_ENV !== 'production') {
-  writeOpenAPIDocument()
-  app.route('/', docsRoute)
+  app.showRoutes()
 }
 
-serve(app, () => {
-  logger.info(`ready on http://localhost:3000`)
-  logger.info(`running as ${process.env.NODE_ENV}`)
+serve({ fetch: app.fetch, hostname: '0.0.0.0', port: PORT }, () => {
+  logger.info(`ready on NODE_ENV=${process.env.NODE_ENV}`)
+  logger.info(`ready on APP_ENV=${process.env.APP_ENV}`)
+  logger.info(`ready on http://localhost:${PORT}`)
 })
